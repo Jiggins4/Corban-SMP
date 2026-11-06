@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corban SMP</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        discord: '#5865F2',
+                        discordHover: '#4752C4',
+                        corban: {
+                            navy: '#0b132b',
+                            blue: '#1c2541'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #09090b; /* Very dark background */
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(28, 37, 65, 0.4), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(88, 101, 242, 0.15), transparent 25%);
+        }
+
+        /* Subtle grid pattern for BlueMap card */
+        .bg-grid-pattern {
+            background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Base Card Styling applied via utility classes in HTML, but scrollbar styled here */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09090b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f3f46;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="w-full max-w-5xl mx-auto">
+        
+        <!-- Grid Container: 1 col mobile, 2x2 desktop -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full">
+            
+            <!-- Card 1: Logo & IP -->
+            <div class="relative flex flex-col items-center justify-center p-8 bg-[#13141a] border border-white/5 rounded-3xl shadow-2xl transition-transform duration-300 hover:scale-[1.02] min-h-[300px]">
+                <img src="corbanLogo.png" alt="Corban University Logo" class="h-28 w-auto object-contain mb-8 drop-shadow-lg" onerror="this.src='https://placehold.co/200x200/1c2541/ffffff?text=Corban+SMP'">
+                
+                <button onclick="copyServerIP()" class="group flex items-center bg-black/40 hover:bg-black/60 border border-white/10 rounded-2xl px-6 py-3 transition-all duration-200 cursor-pointer">
+                    <div class="mr-4 text-left">
+                        <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1">Server IP</p>
+                        <p class="text-lg md:text-xl font-bold text-white font-mono" id="server-ip">play.corban.edu</p>
+                    </div>
+                    <div class="h-10 w-10 bg-white/10 group-hover:bg-corban-blue rounded-xl flex items-center justify-center transition-colors">
+                        <i id="copy-icon" class="fa-regular fa-copy text-gray-300 group-hover:text-white"></i>
+                    </div>
+                </button>
+                <p id="copy-feedback" class="absolute bottom-4 text-emerald-400 text-sm font-semibold opacity-0 transition-opacity duration-300">Copied to clipboard!</p>
+            </div>
+
+            <!-- Card 2: BlueMap -->
+            <div class="relative overflow-hidden flex flex-col justify-end p-8 bg-gradient-to-br from-corban-blue to-emerald-900 border border-white/5 rounded-3xl shadow-2xl transition-transform duration-300 hover:scale-[1.02] min-h-[300px] group">
+                <!-- Decorative background elements -->
+                <div class="absolute inset-0 bg-grid-pattern opacity-30 mix-blend-overlay"></div>
+                <div class="absolute top-6 right-6 text-white/20 group-hover:text-white/40 transition-colors text-6xl">
+                    <i class="fa-solid fa-map"></i>
+                </div>
+                
+                <div class="relative z-10">
+                    <h2 class="text-3xl font-extrabold text-white mb-2">Live BlueMap</h2>
+                    <p class="text-emerald-100/80 mb-6 max-w-[80%]">Explore the world, view claims, and track player movements in real-time 3D.</p>
+                    
+                    <a href="http://96.95.143.174:8100/#world:92:66:-78:0:0.12:1.57:0:0:free" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 bg-white text-emerald-950 font-bold px-6 py-3 rounded-xl hover:bg-emerald-50 transition-colors">
+                        <span>View Map</span>
+                        <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 3: Discord -->
+            <div class="relative flex flex-col justify-center p-8 bg-[#1e1f22] border border-white/5 rounded-3xl shadow-2xl transition-transform duration-300 hover:scale-[1.02] min-h-[300px]">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-discord/10 rounded-bl-full -z-0"></div>
+                
+                <div class="relative z-10 flex flex-col items-center text-center h-full justify-between">
+                    <i class="fa-brands fa-discord text-6xl text-discord mb-4 drop-shadow-[0_0_15px_rgba(88,101,242,0.4)]"></i>
+                    
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-2">Join the Community</h2>
+                        <div class="flex items-center justify-center space-x-2 mb-6">
+                            <span class="relative flex h-3 w-3">
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                              <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                            </span>
+                            <span id="discord-online-count" class="text-gray-400 text-sm font-medium">Loading members...</span>
+                        </div>
+                    </div>
+                    
+                    <a href="https://discord.gg/jNr4UR8Gc" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center bg-discord hover:bg-discordHover text-white font-bold px-8 py-3 rounded-xl transition-colors shadow-lg shadow-discord/20">
+                        Join Discord
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 4: How To Join (Terminal Style) -->
+            <div class="relative flex flex-col bg-[#0c0c0c] border border-zinc-800 rounded-3xl shadow-2xl transition-transform duration-300 hover:scale-[1.02] min-h-[300px] overflow-hidden">
+                <div class="bg-[#18181b] px-4 py-3 flex items-center border-b border-zinc-800">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <div class="mx-auto text-xs font-mono text-zinc-500">How to join</div>
+                </div>
+                
+                <div class="p-6 font-mono text-sm md:text-base flex-1 flex flex-col justify-center">
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <span class="text-emerald-500 mr-2">~</span>
+                            <span class="text-zinc-300">Server Name: <span class="text-white font-bold">Corban University SMP</span></span>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-emerald-500 mr-2">~</span>
+                            <span class="text-zinc-300">Launch Minecraft <span class="text-zinc-500">(Java or Bedrock)</span>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-emerald-500 mr-2">~</span>
+                            <span class="text-zinc-300">Navigate to: <span class="text-blue-400">Multiplayer > Add Server</span></span>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-emerald-500 mr-2">~</span>
+                            <span class="text-zinc-300">Address: <span class="text-white font-bold">play.corban.edu</span></span>
+                        </div>
+                        <div class="flex items-start bg-yellow-500/10 p-3 rounded-lg border border-yellow-500/20 mt-4">
+                            <i class="fa-solid fa-triangle-exclamation text-yellow-500 mt-1 mr-3"></i>
+                            <span class="text-yellow-200/90 text-sm">
+                                Authentication requires an active <strong class="text-yellow-400">@corban.edu</strong> email address to connect.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex animate-pulse">
+                        <span class="text-emerald-500 mr-2">></span>
+                        <span class="w-2.5 h-5 bg-zinc-400 block"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        function copyServerIP() {
+            const ipText = document.getElementById('server-ip').innerText;
+            const btnIcon = document.getElementById('copy-icon');
+            const feedback = document.getElementById('copy-feedback');
+            
+            // Using a temporary textarea to ensure copy works robustly
+            const textArea = document.createElement("textarea");
+            textArea.value = ipText;
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                
+                // Visual feedback updates
+                btnIcon.classList.remove('fa-copy');
+                btnIcon.classList.add('fa-check', 'text-emerald-400');
+                
+                feedback.classList.remove('opacity-0');
+                feedback.classList.add('opacity-100');
+                
+                // Reset after 2.5 seconds
+                setTimeout(() => {
+                    btnIcon.classList.remove('fa-check', 'text-emerald-400');
+                    btnIcon.classList.add('fa-copy');
+                    
+                    feedback.classList.remove('opacity-100');
+                    feedback.classList.add('opacity-0');
+                }, 2500);
+                
+            } catch (err) {
+                console.error('Failed to copy text', err);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        async function updateDiscordCount() {
+            const serverId = 1555617096287916122; 
+            const widgetUrl = `https://discord.com/api/guilds/1555617096287916122/widget.json`;
+            const countElement = document.getElementById('discord-online-count');
+            
+            try {
+                const response = await fetch(widgetUrl);
+                if (!response.ok) throw new Error('Widget disabled or server not found');
+                
+                const data = await response.json();
+                // presence_count gives the number of online members
+                countElement.innerText = `${data.presence_count} Members Online`;
+            } catch (error) {
+                console.error('Error fetching Discord stats:', error);
+                // Fallback text if the API fails or widget is disabled
+                countElement.innerText = `Join our Community`;
+            }
+        }
+
+        // Initialize the fetch on load
+        updateDiscordCount();
+    </script>
+</body>
+</html>
